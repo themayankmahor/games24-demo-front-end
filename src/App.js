@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -37,6 +39,7 @@ function App() {
     </Routes>
     </BrowserRouter>
     </UserProvider>
+
   )
 }
 

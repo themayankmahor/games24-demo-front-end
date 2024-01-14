@@ -36,3 +36,30 @@
     transform: rotate(360deg);
   }
 }
+
+.nav-text
+{
+  font-size: 18px;
+}
+
+.black-background {
+  background-color: #000; /* Dark black color */
+  color: #fff; /* White text color */
+  padding: 50px; /* Add padding as needed */
+}
+
+.shade1-background {
+  background-color: #392467; /* Dark black color */
+  color: #fff; /* White text color */
+  padding: 50px; /* Add padding as needed */
+}
+.shade2-background {
+  background-color: #5D3587; /* Dark black color */
+  color: #fff; /* White text color */
+  padding: 50px; /* Add padding as needed */
+}
+.shade3-background {
+  background-color: #A367B1; /* Dark black color */
+  color: #fff; /* White text color */
+  padding: 50px; /* Add padding as needed */
+}

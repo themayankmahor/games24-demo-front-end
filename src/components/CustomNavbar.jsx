@@ -17,6 +17,7 @@ import {
 } from 'reactstrap';
 import userContext from '../context/userContext';
 import { doLogout } from '../auth';
+import { BASE_URL } from '../services/helper';
 
 const CustomNavbar = () => {
 
@@ -55,39 +56,56 @@ const CustomNavbar = () => {
         dark
         expand="md"
         fixed=""
-        className="px-5"        //here in px, x is x-axis (Left, Right)
+        className="px-3"        //here in px, x is x-axis (Left, Right)
             >
-          <NavbarBrand href="/">GamePatty</NavbarBrand>
+          
+
+          <NavLink tag={ReactLink} to={"/"} className="d-flex align-items-center">
+            <img className='my-2' src={BASE_URL+'/games/image/gamePattyLogo.png'} style={{maxWidth:'250px'}} alt="Logo" />
+          </NavLink>
+
+          {/* <img className='my-2' src={BASE_URL+'/games/image/gamePattyLogo.png'} style={{maxWidth:'250px'}} /> */}
+          {/* <NavbarBrand href="/">GamePatty</NavbarBrand> */}
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav className="me-auto" navbar>
-
-                {/* Home */}
-              <NavItem>
-                <NavLink tag={ReactLink} to={"/"}>Home</NavLink>
-              </NavItem>
+            <Nav className="nav-text me-auto" navbar>
 
                 {/* About */}
-              <NavItem>
+              <NavItem className="px-4">
                 <NavLink tag={ReactLink} to={"/about"}>About</NavLink>
               </NavItem>
 
-                {/* Services */}
-              <NavItem>
-                <NavLink tag={ReactLink} to={"/services"}>Services</NavLink>
+                {/* News */}
+              <NavItem className="px-4">
+                <NavLink tag={ReactLink} to={"/about"}>News</NavLink>
               </NavItem>
 
-              <UncontrolledDropdown nav inNavbar>
+                {/* Careers */}
+              <NavItem className="px-4">
+                <NavLink tag={ReactLink} to={"/services"}>Careers</NavLink>
+              </NavItem>
+
+                {/* Projects */}
+              <NavItem className="px-4">
+                <NavLink tag={ReactLink} to={"/services"}>Projects</NavLink>
+              </NavItem>
+
+                {/* Contacts */}
+              <NavItem className="px-4">
+                <NavLink tag={ReactLink} to={"/services"}>Contact</NavLink>
+              </NavItem>
+
+              {/* <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   More
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>Instagram</DropdownItem>
                   <DropdownItem>Facebook</DropdownItem>
-                  <DropdownItem divider />  {/*use divider for line in dropdown box*/}
+                  <DropdownItem divider />  
                   <DropdownItem>Contact Us</DropdownItem>
                 </DropdownMenu>
-              </UncontrolledDropdown>
+              </UncontrolledDropdown> */}
             </Nav>
             
             {/* Right Side navbar */}

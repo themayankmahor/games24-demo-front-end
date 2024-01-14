@@ -4,6 +4,7 @@ import Base from "../../components/Base";
 const UserDashboard = () => {
  
     return(
+        
         <Base>
             <AddGame/>
         </Base>
