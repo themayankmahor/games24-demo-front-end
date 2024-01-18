@@ -72,7 +72,6 @@ const ProjectsBanner = () => {
         >
           <img src={BASE_URL+'/games/image/'+item.imageName} alt={item.altText} style={{ width: '100%' }} />
           <CarouselCaption
-            captionText={item.gameTitle}
             captionHeader={item.gameTitle}
           />
         </CarouselItem>

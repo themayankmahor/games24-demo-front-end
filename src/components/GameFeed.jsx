@@ -28,12 +28,24 @@ const GameFeed = () => {
     ///Change page
     const changePage = (pageNumber = 0, pageSize = 5) => {
 
+        //for disabling next page
+        if (pageNumber > gameContent.pageNumber && gameContent.lastPage)
+        {
+            return;
+        }
+
+        //for disablign previous buitton 
+        if (pageNumber < gameContent.pageNumber && gameContent.pageNumber == 0)
+        {
+            return;
+        }
+
         ///load all games
         getAllGames(pageNumber, pageSize).then((data) => {
 
             //
             setGameContent({
-                content         :[...data.content],
+                content         :[...gameContent.content, ...data.content],
                 totalPage       :data.totalPage,
                 totalElements   :data.totalElements,
                 pageSize        :data.pageSize,

@@ -6,6 +6,7 @@ import ProjectsBanner from "../components/about/ProjectsBanner";
 import PauseOnHover from "../components/about/ProjectSmallCards";
 import ClientsAndPartner from "../components/about/ClientsAndPartners";
 import ClientTestimony from "../components/about/ClientTestimony";
+import CarouselComponent from "../components/about/ProjectSmallCards";
 
 
 const About = () =>{
@@ -47,11 +48,11 @@ const About = () =>{
             {/* Other Component*/}
             <Other/>
 
-            {/* ProjectBanner Componet */}
+            {/* ProjectBanner Component */}
             <ProjectsBanner />
 
             {/* Small Game Cards */}
-            <PauseOnHover/>
+            <CarouselComponent/>
 
             {/* Clients And Partners */}
             <ClientsAndPartner/>

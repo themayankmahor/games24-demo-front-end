@@ -62,7 +62,7 @@ const AddGame = () => {
     const updatedGames = [...games];
     updatedGames.splice(index, 1);
     console.log(games);
-    setGames(updatedGames);
+    setGames(updatedGames); 
   };
 
   ///Handle Form Submit
