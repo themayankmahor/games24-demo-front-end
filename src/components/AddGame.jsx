@@ -1,179 +1,195 @@
-import { useContext, useEffect, useState } from "react"
-import { Button, Card, CardBody, Container, Form, Input, Label } from "reactstrap"
+import React, { useContext, useEffect, useState } from "react";
+import { Button, Form, Input, Table } from "reactstrap";
 import { getAllCategory } from "../services/category-service";
 import userContext from "../context/userContext";
-import { toast } from "react-toastify";
 import { doAddGame, doUploadGameImage } from "../services/game-service";
+import { toast } from "react-toastify";
 
 const AddGame = () => {
-    
-    const userContextData = useContext(userContext);
-    const [categories, setCategories] = useState(null);
-    const [image, setImage] = useState(null);
 
-    ///game
-    const [game, setGame] = useState({
+  const userContextData = useContext(userContext);
+  const [categories, setCategories] = useState(null);
+
+  ///Games
+  const [games, setGames] = useState([
+    {
+      gameTitle: "",
+      description: "",
+      googlePlayLink: "",
+      imageName:"",
+      categoryId: "",
+    },
+  ]);
+
+  ///Handle game change fields
+  const handleGameChange = (index, field, value) => {
+
+
+    // const updatedGames = [...games];
+
+    // if (field === "imageName" && value) {
+    //   // Handle image file
+    //   const fileName = value.name;
+    //   updatedGames[index][field] = fileName;
+    // } else {
+    //   // Handle other fields
+    //   updatedGames[index][field] = value;
+    // }
+    // console.log(updatedGames[index]);
+    // setGames(updatedGames);
+    const updatedGames = [...games];
+    updatedGames[index][field] = value;
+    console.log(games);
+    setGames(updatedGames);
+  };
+
+  ///Add new Row
+  const addGameRow = () => {
+    setGames([
+      ...games,
+      {
+        gameTitle: "",
+        description: "",
+        googlePlayLink: "",
+        imageName:"",
+        categoryId: "",
+      },
+    ]);
+  };
+
+  ///Remove row
+  const removeGameRow = (index) => {
+    const updatedGames = [...games];
+    updatedGames.splice(index, 1);
+    console.log(games);
+    setGames(updatedGames);
+  };
+
+  ///Handle Form Submit
+  const handleFormSubmit = async (event) => {
+    // Prevent default behavior of the form
+    event.preventDefault();
+  
+    try {
+      for (let i = 0; i < games.length; i++) {
+        console.log(games[i].imageName);
         
-        gameTitle:'',
-        description:'',
-        googlePlayLink:'',
-        categoryId:''
+        // Add games
+        const data = await doAddGame(games[i]);
+  
+        console.log(games[i]);
 
-    })
-
-    ///handle image file
-    const handleFileChange = (event) => {
-
-        //set image data
-        setImage(event.target.files[0]);
-        
+        if (games[i].imageName)
+        {
+          // Upload game image
+          const imageData = await doUploadGameImage(games[i]?.imageName, data.gameId);
+        }
+  
+        // toast.success(imageData);
+        toast.success("Game Added!!");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Error adding game");
     }
-
-    ///field changed
-    const fieldChanged = (event) => {
-
-        setGame({
-            ...game,
-            [event.target.name]:event.target.value
-        })
-    }
-
-    ///handle form submit
-    const handleFormSubmit = (event) => {
-
-        event.preventDefault();
-
-        //
-        if (game.gameTitle.trim() === '')
-        {
-            toast.error("Title is required !!!");
-            return;
-        }
-
-        //
-        if (game.description.trim() === '')
-        {
-            toast.error("Game description is required !!!");
-            return;
-        }
-
-        ///
-        if (game.googlePlayLink.trim() === '')
-        {
-            toast.error("Add Google Play Link !!!");
-            return;
-        }
-
-        ///
-        if (game.categoryId === -'')
-        {
-            toast.error("Choose game category");
-            return;
-        }
-
-        ///create new post
-        doAddGame(game).then((data) => {
-            
-            //upload image
-            doUploadGameImage(image, data.gameId).then((data) => {
-
-                toast.success("Image Uploaded !!!")
-
-            }).catch(error => {
-                toast.error("Error in uploading image")
-            })
-
-            toast.success("Game Added");
-
-            //set game null after adding new game
-            setGame({
-                gameTitle:'',
-                description:'',
-                googlePlayLink:''
-            })
-        }).catch(error => {
-            console.log(error);
-            toast.error("Something went wrong");
-        })
+  };
 
 
-    }
+  //Load categories when page loads first time
+  useEffect(() => {
 
+    //call get categories
+    getAllCategory()
+      .then((data) => {
 
-    ///
-    useEffect(() => {
-        
-        ///get all categories
-        getAllCategory().then((data) => {
-            
-            //set all categories
-            setCategories(data);
+        //set categories
+        setCategories(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []); // Empty dependency array to ensure it runs only once
 
-        }).catch((error) => {
-            console.log(error);
-        })
-
-    }, [game])
-
-    return(
-        <div className="wrapper">
-
-            <Card className="shadow-sm my-4 mx-4">
-                <CardBody>
-                    {/* {JSON.stringify(game)} */}
-                    <h3>Add Game</h3>
-
-                    <Form onSubmit={handleFormSubmit}>
-                        
-                        {/* Game Title */}
-                        <div className="my-3">
-                            <Label for="gameTitle" >Game Title</Label>
-                            <Input name="gameTitle" type="text" id="gameTitle" placeholder="Enter Game Title" className="rounded-0" onChange={fieldChanged}/>
-                        </div>
-                        
-                        {/* Game Description */}
-                        <div className="my-3">
-                            <Label for="description" >Description</Label>
-                            <Input name="description" type="textarea" id="description" placeholder="Enter Game Description" className="rounded-0" onChange={fieldChanged}/>
-                        </div>
-
-                        {/* Image Selector*/}
-                        <div className="mt-3">
-                            <Label for="image" >Select Game</Label>
-                            <Input type="file" id="image" onChange={handleFileChange}/>
-                        </div>
-
-                        {/* Google Play Link */}
-                        <div className="my-3">
-                            <Label for="googlePlayLink" >Google Play Link</Label>
-                            <Input name="googlePlayLink" type="text" id="googlePlayLink" placeholder="Enter Google play link" className="rounded-0" onChange={fieldChanged}/>
-                        </div>
-
-                        {/* Game Category */}
-                        <div className="mt-3">
-                            <Label for="category">Game Category</Label>
-                            <Input type="select" id="category" className="rounded-0" name="categoryId" onChange={fieldChanged}>
-                                <option disabled selected>--SELECT--</option>
-
-                                {
-                                    categories && categories.map((category) => (
-                                        <option value={category.categoryId} id={category.categoryId}>{category.categoryTitle}</option>
-                                    ))
-                                }
-                            </Input>
-                        </div>
-
-                        <Container className="text-center my-4">
-                            <Button type="submit" className="rounded-0" color="primary">Add Game</Button>
-                            <Button className="rounded-0 ms-2" color="danger">Reset</Button>
-                        </Container>
-                    </Form>
-                </CardBody>
-            </Card>
-
-        </div>
-    )
-
-}
+  return (
+    <div className="wrapper p-4">
+      <h2>Add Games</h2>
+      <Form onSubmit={handleFormSubmit}>
+        {/* {JSON.stringify(games)} */}
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Game Title</th>
+              <th>Description</th>
+              <th>Google Play Link</th>
+              <th>Add Image</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {games.map((game, index) => (
+              <tr key={index}>
+                <td>
+                  <Input
+                    type="text"
+                    value={game.gameTitle}
+                    onChange={(e) => handleGameChange(index, "gameTitle", e.target.value)}
+                  />
+                </td>
+                <td>
+                  <Input
+                    type="textarea"
+                    value={game.description}
+                    onChange={(e) => handleGameChange(index, "description", e.target.value)}
+                  />
+                </td>
+                <td>
+                  <Input
+                    type="text"
+                    value={game.googlePlayLink}
+                    onChange={(e) => handleGameChange(index, "googlePlayLink", e.target.value)}
+                  />
+                </td>
+                <td>
+                  <Input
+                    id="image"
+                    type="file"
+                    name="imageName"
+                    onChange={(e) => handleGameChange(index, "imageName", e.target.files[0])}
+                  />
+                </td>
+                <td>
+                  <Input
+                    id="category"
+                    type="select"
+                    name="categoryId"
+                    onChange={(e) => handleGameChange(index, "categoryId", e.target.selectedOptions[0].value)}
+                  >
+                  <option disabled selected>--SELECT--</option>
+                  {
+                    categories && categories.map((category) => (
+                        <option key={category.categoryId} value={category.categoryId}>{category.categoryTitle}</option>
+                    ))
+                  }
+                  </Input>
+                </td>
+                <td>
+                  <Button color="danger" onClick={() => removeGameRow(index)}>
+                    Remove
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        <Button color="primary" onClick={addGameRow}>
+          Add Game
+        </Button>
+        <Button color="success" type="submit">
+          Submit
+        </Button>
+      </Form>
+    </div>
+  );
+};
 
 export default AddGame;

@@ -121,6 +121,14 @@ const CustomNavbar = () => {
                                 ADMIN
                             </NavLink>
                             </NavItem>
+
+                        {/* Add Client Testimony */}
+                            <NavItem>
+                            <NavLink tag={ReactLink} to={"/admin/add-clients"}>
+                                Add Client
+                            </NavLink>
+                            </NavItem>
+
                         
                         {/* Add Game */}
                             <NavItem>

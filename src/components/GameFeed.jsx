@@ -33,7 +33,7 @@ const GameFeed = () => {
 
             //
             setGameContent({
-                content         :[...gameContent.content, ...data.content],
+                content         :[...data.content],
                 totalPage       :data.totalPage,
                 totalElements   :data.totalElements,
                 pageSize        :data.pageSize,
@@ -52,7 +52,7 @@ const GameFeed = () => {
         
         //get all post
         changePage(currPage);
-
+        console.log(gameContent);
     }, [currPage])
 
     return(

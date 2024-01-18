@@ -9,7 +9,7 @@ const Base = ({title="Welcome to our website", children}) => {
 
             {children}
 
-            <CustomFooter />
+            
 
         </div>
     )

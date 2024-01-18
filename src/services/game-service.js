@@ -3,16 +3,21 @@ import { myAxios, privateAxios } from "./helper"
 ///add game(/category/{categoryId})
 export const doAddGame = (gameData) => {
 
-    return privateAxios.post(`/games/category/${gameData.categoryId}`, gameData).then((response) => response.data);
+    const modifiedGameData = {...gameData};
+    delete modifiedGameData.imageName;
+
+    // delete gameData.imageName;
+    return privateAxios.post(`/games/category/${modifiedGameData.categoryId}`, modifiedGameData).then((response) => response.data);
 }
 
 
 ///upload image (/image/upload/{gameId})
 export const doUploadGameImage = (image, gameId) => {
+    console.log(image);
     let formData = new FormData();
     formData.append("image", image);
 
-    return privateAxios.post(`/games/image/upload/${gameId}`, formData, {
+    return privateAxios.post(`games/image/upload/${gameId}`, formData, {
         headers:{
             'Content-Type':'multipart/form-data'
         }

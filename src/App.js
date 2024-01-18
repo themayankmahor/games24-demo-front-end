@@ -14,6 +14,7 @@ import PrivateRoute from './components/PrivateRoute';
 import UserDashboard from './pages/admin-routes/UserDashboard';
 import GamePage from './pages/GamePage';
 import Categories from './pages/Categories';
+import AddClients from './pages/admin-routes/AddClients';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
       {/* Private Routes */}
       <Route path='/admin' element={<PrivateRoute />}>
         <Route path='dashboard' element={<UserDashboard />}/>
+        <Route path='add-clients' element={<AddClients/>}/>
 
       </Route>
 

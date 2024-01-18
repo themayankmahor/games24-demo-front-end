@@ -94,19 +94,19 @@ const Image = styled.img`
         <Wrapper>
           <Marquee>
             <MarqueeGroup>
+              {row.map((el, index) => (
+                <ImageGroup key={index}>
+                  <Image src={el} />
+                </ImageGroup>
+              ))}
+            </MarqueeGroup>
+            {/* <MarqueeGroup>
               {row.map((el) => (
                 <ImageGroup>
                   <Image src={el} />
                 </ImageGroup>
               ))}
-            </MarqueeGroup>
-            <MarqueeGroup>
-              {row.map((el) => (
-                <ImageGroup>
-                  <Image src={el} />
-                </ImageGroup>
-              ))}
-            </MarqueeGroup>
+            </MarqueeGroup> */}
           </Marquee>
 
         </Wrapper>

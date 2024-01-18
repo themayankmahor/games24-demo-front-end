@@ -1,8 +1,5 @@
-import Slider from "react-slick";
 import Base from "../components/Base"
 import { BASE_URL } from "../services/helper";
-import { Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem } from "reactstrap";
-import { useState } from "react";
 import LicensedPlatform from "../components/about/LicensedPlatform";
 import Other from "../components/about/Other";
 import ProjectsBanner from "../components/about/ProjectsBanner";
@@ -12,10 +9,7 @@ import ClientTestimony from "../components/about/ClientTestimony";
 
 
 const About = () =>{
-
-
-    
-    
+ 
     return(
         <Base>
             {/* Banner Image */}
@@ -45,13 +39,13 @@ const About = () =>{
                 
             </div>
 
-             {/* ENGINEERING CRITICAL HITS ---END---*/}
+            {/* ENGINEERING CRITICAL HITS ---END---*/}
 
-             {/* Licensed Platform ---START--- */}
-             <LicensedPlatform/>
+            {/* Licensed Platform ---START--- */}
+            <LicensedPlatform/>
 
             {/* Other Component*/}
-            <Other />
+            <Other/>
 
             {/* ProjectBanner Componet */}
             <ProjectsBanner />
@@ -63,7 +57,8 @@ const About = () =>{
             <ClientsAndPartner/>
 
             {/* Client Testimony */}
-            <ClientTestimony />
+            <ClientTestimony/>
+
         </Base>
     )
 

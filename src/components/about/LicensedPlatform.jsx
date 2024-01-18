@@ -1,107 +1,124 @@
 import { Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem } from "reactstrap";
 import { BASE_URL } from "../../services/helper";
 import { useState } from "react";
+import React from "react";
+import styled, { keyframes, css } from "styled-components";
 import PlatformRotation from "./PlatformRotation";
 
-const items = [
-    {
-      src: BASE_URL+"/games/image/gamePattyLogo.png",
-      altText: 'Slide 1',
-      caption: 'Slide 1',
-      key: 1,
-    },
-    {
-      src: 'https://picsum.photos/id/456/1200/400',
-      altText: 'Slide 2',
-      caption: 'Slide 2',
-      key: 2,
-    },
-    {
-      src: 'https://picsum.photos/id/678/1200/400',
-      altText: 'Slide 3',
-      caption: 'Slide 3',
-      key: 3,
-    },
-  ];
+const row = [
+  "https://assets.algoexpert.io/spas/main/prod/g523bdeb478-prod/dist/images/7ae42bac3b34999c0db3.png",
+  "https://assets.algoexpert.io/spas/main/prod/g523bdeb478-prod/dist/images/b2bd91d7b87b2181ca45.png",
+  "https://assets.algoexpert.io/spas/main/prod/g523bdeb478-prod/dist/images/6591cdc0702b32310306.png",
+  "https://assets.algoexpert.io/spas/main/prod/g523bdeb478-prod/dist/images/3b7d9f4b073deb6a9b74.png",
+  "https://assets.algoexpert.io/spas/main/prod/g523bdeb478-prod/dist/images/3cd767dea94a85078ca4.png",
+  "https://assets.algoexpert.io/spas/main/prod/g523bdeb478-prod/dist/images/a2b3c3709ffedce2a22a.png",
+];
 
+const AppContainer = styled.div`
+width: 100vw;
+height: 25vh;
+color: #000000;
+
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+`;
+
+const Wrapper = styled.div`
+width: 100%;
+height: fit-content;
+
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+`;
+
+const Marquee = styled.div`
+display: flex;
+width: 1200px;
+overflow: hidden;
+user-select: none;
+
+mask-image: linear-gradient(
+  to right,
+  hsl(0 0% 0% / 0),
+  hsl(0 0% 0% / 1) 10%,
+  hsl(0 0% 0% / 1) 90%,
+  hsl(0 0% 0% / 0)
+);
+`;
+
+const scrollX = keyframes`
+from {
+  left: translateX(0);
+}
+to {
+  transform: translateX(-100%);
+}
+`;
+
+const common = css`
+flex-shrink: 0;
+display: flex;
+align-items: center;
+justify-content: space-around;
+white-space: nowrap;
+width: 100%;
+animation: ${scrollX} 30s linear infinite;
+`;
+
+const MarqueeGroup = styled.div`
+${common}
+`;
+
+const ImageGroup = styled.div`
+display: grid;
+place-items: center;
+width: clamp(10rem, 1rem + 40vmin, 30rem);
+padding: calc(clamp(10rem, 1rem + 30vmin, 30rem) / 10);
+`;
+
+const Image = styled.img`
+object-fit: contain;
+width: 100%;
+height: 100%;
+/* border: 1px solid black; */
+border-radius: 0.5rem;
+aspect-ratio: 16/9;
+padding: 5px 20px;
+box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+`;
 
 const LicensedPlatform = () => {
-
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [animating, setAnimating] = useState(false);
-  
-    const next = () => {
-      if (animating) return;
-      const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
-      setActiveIndex(nextIndex);
-    };
-  
-    const previous = () => {
-      if (animating) return;
-      const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
-      setActiveIndex(nextIndex);
-    };
-  
-    const goToIndex = (newIndex) => {
-      if (animating) return;
-      setActiveIndex(newIndex);
-    };
-  
-    const slides = items.map((item) => {
-      return (
-        <CarouselItem
-          onExiting={() => setAnimating(true)}
-          onExited={() => setAnimating(false)}
-          key={item.src}
-        >
-          <img src={item.src} alt={item.altText} />
-          <CarouselCaption
-            captionText={item.caption}
-            captionHeader={item.caption}
-          />
-        </CarouselItem>
-      );
-    });
-
-    const settings = {
-        slidesToShow: 3, // Show 3 slides at a time
-        slidesToScroll: 1, // Scroll 1 slide at a time
-        speed: 500000000, // Transition speed in milliseconds
-      };
 
     return(
         <div className="my-2">
             {/* Heading */}
             <h5 className="text-center my-5" style={{fontWeight:'bold', fontSize:'25px'}}>LICENSED PLATFORM</h5>
 
-            {/* Carousel */}
-            {/* <div>
-            <Carousel
-            activeIndex={activeIndex}
-            next={next}
-            previous={previous}
-            {...settings}
-            >
-            <CarouselIndicators
-                items={items}
-                activeIndex={activeIndex}
-                onClickHandler={goToIndex}
-            />
-            {slides}
-            <CarouselControl
-                direction="prev"
-                directionText="Previous"
-                onClickHandler={previous}
-            />
-            <CarouselControl
-                direction="next"
-                directionText="Next"
-                onClickHandler={next}
-            />
-            </Carousel>
-            </div> */}
+            <AppContainer>
+            <Wrapper>
+              <Marquee>
+                <MarqueeGroup>
+                  {row.map((el, index) => (
+                    <ImageGroup key={index}>
+                      <Image src={el} />
+                    </ImageGroup>
+                  ))}
+                </MarqueeGroup>
+                <MarqueeGroup>
+                  {row.map((el, index) => (
+                    <ImageGroup key={index}>
+                      <Image src={el} />
+                    </ImageGroup>
+                  ))}
+                </MarqueeGroup>
+              </Marquee>
 
-            <PlatformRotation/>
+            </Wrapper>
+          </AppContainer>
         </div>
     )
 
