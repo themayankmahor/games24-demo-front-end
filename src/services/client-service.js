@@ -11,3 +11,9 @@ export const doCreateClients = (clients) => {
     
     return privateAxios.post(`client/create-clients`, clients).then((response) => response.data);
 }
+
+///delete client testimony
+export const doDeleteClientTestimony = (clientId) => {
+
+    return privateAxios.delete(`client/delete/${clientId}`).then((response) => response.data);
+}

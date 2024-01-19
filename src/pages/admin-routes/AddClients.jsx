@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Base from "../../components/Base";
 import { Table, Button, Form } from "react-bootstrap";
-import { doCreateClients } from "../../services/client-service";
+import { doCreateClients, doDeleteClientTestimony, getAllClients } from "../../services/client-service";
 import { toast } from "react-toastify";
+import Client from "../../components/Client";
 
 const AddClients = () => {
 
@@ -12,6 +13,9 @@ const AddClients = () => {
         testimony: ""
     },
   ]);
+
+  const [allClients, setAllClients] = useState([]);
+  const [refreshPage, setRefreshPage] = useState(true);
 
   ///Handle client change
   const handleClientChange = (index, field, value) => {
@@ -45,11 +49,55 @@ const AddClients = () => {
 
       //
       toast.success("Clients Added !!!");
-
+      
+      //reset Clients
+      setClients([
+        {
+            clientName: "", 
+            testimony: ""
+        },
+      ])
+      setRefreshPage(true);
     }).catch(error => {
       console.log(error);
     })
   };
+
+     ///Delete Tag
+     const deleteClientTestimony = (clientTestimony) => {
+
+      doDeleteClientTestimony(clientTestimony.id).then((data) => {
+
+          toast.success("Client Testimony Deleted !!!");
+
+          setRefreshPage(true);
+          // let newClients = clientTestimony.filter(c => c.id != clientTestimony.id)
+          // setAllClients([...newClients]);
+
+      }).catch((error) => {
+          console.log(error)
+          toast.error("Something went wrong while deleting client testimony !!");
+      })
+  }
+
+  ///Use effect
+  useEffect(() => {
+    
+    if (refreshPage)
+    {
+      ///get all client testimonys
+      getAllClients().then((data) => {
+
+        //set clients
+        setAllClients(data);
+      }).catch((error) => {
+
+        toast.error();
+      })
+      setRefreshPage(false);
+    }
+
+  }, [refreshPage])
 
   return (
     <Base>
@@ -103,6 +151,18 @@ const AddClients = () => {
           </Button>
         </Form>
       </div>
+          {/* All Client */}
+        <div className="p-5">
+        <div>
+            <h1>All Client Testimony ({allClients.length})</h1>
+        </div>
+        {
+            allClients.map((client, index) => (
+
+                <Client client={client} key={index} deleteClient={deleteClientTestimony} />
+            ))
+        }
+        </div>
     </Base>
   );
 };

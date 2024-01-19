@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Label, Table } from "reactstrap";
-import { getAllCategory } from "../services/category-service";
-import userContext from "../context/userContext";
-import { doAddGame, doUploadGameBannerImage, doUploadGameScreenShot1Image, doUploadGameScreenShot2Image, doUploadGameScreenShot3Image, doUploadGameScreenShot4Image, doUploadGameSquareImage } from "../services/game-service";
+import { getAllCategory } from "../../services/category-service";
+import { doAddGame, doUploadGameBannerImage, doUploadGameScreenShot1Image, doUploadGameScreenShot2Image, doUploadGameScreenShot3Image, doUploadGameScreenShot4Image, doUploadGameSquareImage } from "../../services/game-service";
 import { toast } from "react-toastify";
-import { doGetAllTags } from "../services/tag-service";
+import { doGetAllTags } from "../../services/tag-service";
+import Base from "../../components/Base";
 
 const AddGame = () => {
 
@@ -156,7 +156,9 @@ const AddGame = () => {
   }, []); // Empty dependency array to ensure it runs only once
 
   return (
-    <div className="wrapper p-4">
+
+    <Base>
+          <div className="wrapper p-4">
       <h2>Add Games</h2>
       <Form onSubmit={handleFormSubmit}>
         {/* {JSON.stringify(games)} */}
@@ -300,6 +302,7 @@ const AddGame = () => {
         </Button>
       </Form>
     </div>
+    </Base>
     
   );
 };

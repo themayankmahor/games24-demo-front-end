@@ -11,10 +11,12 @@ import { ToastContainer } from 'react-toastify';
 import UserProvider from './context/UserProvider';
 import Login from './pages/Login';
 import PrivateRoute from './components/PrivateRoute';
-import UserDashboard from './pages/admin-routes/UserDashboard';
 import GamePage from './pages/GamePage';
 import Categories from './pages/Categories';
 import AddClients from './pages/admin-routes/AddClients';
+import AddCategory from './pages/admin-routes/AddCategory';
+import AddTag from './pages/admin-routes/AddTag';
+import AddGame from './pages/admin-routes/AddGame';
 
 function App() {
   return (
@@ -33,8 +35,10 @@ function App() {
 
       {/* Private Routes */}
       <Route path='/admin' element={<PrivateRoute />}>
-        <Route path='dashboard' element={<UserDashboard />}/>
+        <Route path='dashboard' element={<AddGame />}/>
         <Route path='add-clients' element={<AddClients/>}/>
+        <Route path='add-category' element={<AddCategory/>}/>
+        <Route path='add-tag' element={<AddTag/>}/>
 
       </Route>
 

@@ -70,7 +70,7 @@ const ProjectsBanner = () => {
           onExited={() => setAnimating(false)}
           key={item.gameId}
         >
-          <img src={BASE_URL+'/games/image/'+item.imageName} alt={item.altText} style={{ width: '100%' }} />
+          <img src={BASE_URL+'/games/image/'+item.bannerImage} alt={item.altText} style={{ width: '100%' }} />
           <CarouselCaption
             captionHeader={item.gameTitle}
           />

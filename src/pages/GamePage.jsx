@@ -59,7 +59,7 @@ const GamePage = () => {
 
                                         {/* Game Image */}
                                         <div className="text-center image-container mt-3 shadow" style={{maxWidth:'50%'}}>
-                                            <img className="text-center img-fluid" src={BASE_URL+'/games/image/'+game.imageName} />
+                                            <img className="text-center img-fluid" src={BASE_URL+'/games/image/'+game.bannerImage} />
                                         </div>
 
                                          {/* Divider */}
