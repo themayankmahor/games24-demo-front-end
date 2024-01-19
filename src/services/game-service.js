@@ -100,8 +100,20 @@ export const getAllGames = (pageNumber, pageSize) => {
     return myAxios.get(`games/?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=addedDate&sortDir=desc`).then(response => response.data);
 }
 
+///get every games
+export const doGetEveryGames = () => {
+
+    return myAxios.get(`games/get-all-games/`).then((response) => response.data);
+}
+
 ///Get game by ID
 export const getSingleGame = (gameId) => {
 
     return myAxios.get(`games/${gameId}`).then(response => response.data);
+}
+
+///Delete Game
+export const doDeleteGame = (gameId) => {
+
+    return privateAxios.delete(`games/${gameId}`).then((response) => response.data);
 }

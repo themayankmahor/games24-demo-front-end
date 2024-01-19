@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Label, Table } from "reactstrap";
 import { getAllCategory } from "../../services/category-service";
-import { doAddGame, doUploadGameBannerImage, doUploadGameScreenShot1Image, doUploadGameScreenShot2Image, doUploadGameScreenShot3Image, doUploadGameScreenShot4Image, doUploadGameSquareImage } from "../../services/game-service";
+import { doAddGame, doDeleteGame, doGetEveryGames, doUploadGameBannerImage, doUploadGameScreenShot1Image, doUploadGameScreenShot2Image, doUploadGameScreenShot3Image, doUploadGameScreenShot4Image, doUploadGameSquareImage } from "../../services/game-service";
 import { toast } from "react-toastify";
 import { doGetAllTags } from "../../services/tag-service";
 import Base from "../../components/Base";
+import Game from "../../components/Game";
 
 const AddGame = () => {
 
   const [categories, setCategories] = useState(null);
   const [tags, setTags] = useState(null);
+  const [allGames, setAllGames] = useState([]);
+  const [refreshPage, setRefreshPage] = useState(true);
 
   ///Games
   const [games, setGames] = useState([
@@ -69,6 +72,22 @@ const AddGame = () => {
     setGames(updatedGames); 
   };
 
+  ///Delete Game
+  const deleteGame = (game) => {
+
+  doDeleteGame(game.gameId).then((data) => {
+
+      toast.success("Game Deleted !!!");
+      setRefreshPage(true);
+      // let newClients = clientTestimony.filter(c => c.id != clientTestimony.id)
+      // setAllClients([...newClients]);
+
+  }).catch((error) => {
+      console.log(error)
+      toast.error("Something went wrong while deleting Game !!");
+  })
+  }
+
   ///Handle Form Submit
   const handleFormSubmit = async (event) => {
     // Prevent default behavior of the form
@@ -118,9 +137,31 @@ const AddGame = () => {
           // Upload game image
           const ss4ImageData = await doUploadGameScreenShot4Image(games[i]?.screenShot4, data.gameId);
         }
-  
+        
+        //reset
+        setGames([
+          {
+            gameTitle: "",
+            description: "",
+            googlePlayLink: "",
+            appleStoreLink:"",
+            steamLink:"",
+            bannerImage:"",
+            squareImage:"",
+            screenShot1:"",
+            screenShot2:"",
+            screenShot3:"",
+            screenShot4:"",
+            categoryId: "",
+            tagId:"",
+          }
+        ])
+        
         // toast.success(imageData);
         toast.success("Game Added!!");
+
+        //
+        setRefreshPage(true);
       }
     } catch (error) {
       console.error(error);
@@ -132,28 +173,44 @@ const AddGame = () => {
   //Load categories when page loads first time
   useEffect(() => {
 
-    ///Get Tags
-    doGetAllTags().then((data) => {
+    if(refreshPage)
+    {
 
-      //set tags
-      setTags(data);
+      ///Get all games
+      doGetEveryGames().then((data) => {
 
-    }).catch((error) => {
+        //set all games
+        setAllGames(data);
+        console.log(data);
+      }).catch((error) => {
 
-      console.log(error);
-    })
-
-    //get categories
-    getAllCategory()
-      .then((data) => {
-
-        //set categories
-        setCategories(data);
-      })
-      .catch((error) => {
-        console.log(error);
+        toast.error("Error in getting Games !!!");
       });
-  }, []); // Empty dependency array to ensure it runs only once
+
+      ///Get Tags
+      doGetAllTags().then((data) => {
+
+        //set tags
+        setTags(data);
+
+      }).catch((error) => {
+
+        console.log(error);
+      })
+
+      //get categories
+      getAllCategory()
+        .then((data) => {
+
+          //set categories
+          setCategories(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+        setRefreshPage(false);
+    }
+  }, [refreshPage]); // Empty dependency array to ensure it runs only once
 
   return (
 
@@ -302,6 +359,18 @@ const AddGame = () => {
         </Button>
       </Form>
     </div>
+        {/* All Games */}
+        <div className="p-5">
+        <div>
+            <h1>All Games ({allGames.length})</h1>
+        </div>
+        {
+            allGames.map((game, index) => (
+
+                <Game game={game} key={index} deleteGame={deleteGame} />
+            ))
+        }
+        </div>
     </Base>
     
   );
