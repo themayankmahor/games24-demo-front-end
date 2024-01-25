@@ -100,6 +100,12 @@ export const getAllGames = (pageNumber, pageSize) => {
     return myAxios.get(`games/?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=addedDate&sortDir=desc`).then(response => response.data);
 }
 
+///Get game by category ID
+export const doGetGamesByCategoryId = (categoryId) => {
+    
+    return myAxios.get(`games/category/${categoryId}`).then(response => response.data);
+}
+
 ///get every games
 export const doGetEveryGames = () => {
 

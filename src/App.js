@@ -17,6 +17,7 @@ import AddClients from './pages/admin-routes/AddClients';
 import AddCategory from './pages/admin-routes/AddCategory';
 import AddTag from './pages/admin-routes/AddTag';
 import AddGame from './pages/admin-routes/AddGame';
+import Project from './pages/Projects';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
 
       <Route path='/' element={<Home/>}/>
       <Route path='/about' element={<About/>}/>
+      <Route path='/projects' element={<Project/>}/>
       <Route path='/services' element={<Services/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/games/:gameId' element={<GamePage/>}/>

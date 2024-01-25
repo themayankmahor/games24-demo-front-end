@@ -143,11 +143,11 @@ const AddClients = () => {
               ))}
             </tbody>
           </Table>
-          <Button variant="primary" onClick={addClientRow}>
-            Add Client
+          <Button className="m-3" variant="primary" onClick={addClientRow}>
+            Add Row
           </Button>
           <Button variant="success" type="submit">
-            Submit
+            Add Client(s)
           </Button>
         </Form>
       </div>

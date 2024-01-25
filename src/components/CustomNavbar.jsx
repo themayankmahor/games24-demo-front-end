@@ -81,13 +81,13 @@ const CustomNavbar = () => {
               </NavItem>
 
                 {/* Careers */}
-              <NavItem className="px-4">
+              {/* <NavItem className="px-4">
                 <NavLink tag={ReactLink} to={"/services"}>Careers</NavLink>
-              </NavItem>
+              </NavItem> */}
 
                 {/* Projects */}
               <NavItem className="px-4">
-                <NavLink tag={ReactLink} to={"/services"}>Projects</NavLink>
+                <NavLink tag={ReactLink} to={"/projects"}>Projects</NavLink>
               </NavItem>
 
                 {/* Contacts */}
@@ -116,43 +116,58 @@ const CustomNavbar = () => {
                     userContextData.user.login && (
                         <>
                         {/* User name */}
-                            <NavItem>
+                            <NavItem className="px-3">
                             <NavLink >
                                 ADMIN
                             </NavLink>
                             </NavItem>
 
                         {/* Add Tag */}
-                            <NavItem>
+                            {/* <NavItem>
                             <NavLink tag={ReactLink} to={"/admin/add-tag"}>
                                 Add Tag
                             </NavLink>
-                            </NavItem>
+                            </NavItem> */}
 
                         {/* Add Category */}
-                            <NavItem>
+                            {/* <NavItem>
                             <NavLink tag={ReactLink} to={"/admin/add-category"}>
                                 Add Category
                             </NavLink>
-                            </NavItem>
+                            </NavItem> */}
 
                         {/* Add Client Testimony */}
-                            <NavItem>
+                            {/* <NavItem>
                             <NavLink tag={ReactLink} to={"/admin/add-clients"}>
                                 Add Client
                             </NavLink>
-                            </NavItem>
+                            </NavItem> */}
 
                         
                         {/* Add Game */}
-                            <NavItem>
+                            {/* <NavItem>
                             <NavLink tag={ReactLink} to={"/admin/dashboard"}>
                                 Add Game
                             </NavLink>
-                            </NavItem>
+                            </NavItem> */}
+
+                        <UncontrolledDropdown nav inNavbar>
+                        <DropdownToggle nav caret>
+                          Add Items
+                        </DropdownToggle>
+                        <DropdownMenu right>
+
+                          <DropdownItem tag={ReactLink} to={"/admin/add-tag"}>Add Tag</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={"/admin/add-category"} >Add Category</DropdownItem>
+                          {/* <DropdownItem divider /> */}
+                          <DropdownItem tag={ReactLink} to={"/admin/add-clients"} >Add Client</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={"/admin/dashboard"}>Add Game</DropdownItem>
+
+                        </DropdownMenu>
+                      </UncontrolledDropdown>
 
                         {/* Logout */}
-                            <NavItem>
+                            <NavItem className="px-3">
                                 <NavLink onClick={logout}>
                                 Logout
                                 </NavLink>

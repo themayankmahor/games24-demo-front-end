@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { getSingleGame } from "../services/game-service";
 import { BASE_URL } from "../services/helper";
+import SimilarGames from "../components/game-page/SimilarGames";
 
 const GamePage = () => {
 
@@ -42,12 +43,9 @@ const GamePage = () => {
                         <Card className="mt-3 ps-2 border-0 shadow">
                             {
                                 game && (
-                                    <CardBody className="text-center">
-                                        {/* Game Posted On */}
-                                        <CardText>Posted On: <b>{printData(game.addedDate)}</b></CardText>
-
+                                    <CardBody className="text-center d-flex flex-column align-items-center">
                                         {/* Game title */}
-                                        <CardText><b>{game.gameTitle}</b></CardText>
+                                        <CardText><h2><b>{game.gameTitle}</b></h2></CardText>
 
                                         {/* Category Title */}
                                         <CardText>
@@ -58,15 +56,79 @@ const GamePage = () => {
                                         <div className="divider" style={{width:'100%', height:'1px',background:'#e2e2e2'}}></div>
 
                                         {/* Game Image */}
-                                        <div className="text-center image-container mt-3 shadow" style={{maxWidth:'50%'}}>
-                                            <img className="text-center img-fluid" src={BASE_URL+'/games/image/'+game.bannerImage} />
+                                        <div className="text-center mt-3 shadow" style={{maxWidth:'100%'}}>
+                                            <img className="text-center" src={BASE_URL+'/games/image/'+game.bannerImage} />
                                         </div>
 
                                          {/* Divider */}
                                          <div className="divider" style={{width:'100%', height:'1px',background:'#e2e2e2'}}></div>
 
+                                         {/* Links */}
+                                         <div className="d-flex justify-content-between mt-5" style={{width:'60%'}}>
+                                            {/* Google Play Link */}
+                                            {
+                                                game.googlePlayLink && (
+                                                    <div>
+                                                        <Link> <h5>{game.googlePlayLink}</h5></Link>
+                                                    </div>
+                                                )
+                                            }
+                                        
+                                            {/* Apple Store Link */}
+                                            {
+                                            game.appleStoreLink && (
+                                                <div>
+                                                    <h5>{game.appleStoreLink}</h5>
+                                                </div>
+                                            )
+                                            }
+                                         </div>
+
+
+
                                         {/* Description */}
                                         <CardText className="mt-5" dangerouslySetInnerHTML={{__html:game.description}}></CardText>
+
+                                        {/* Screen Shots */}
+                                        <div className="d-flex justify-content-between mt-5" style={{width:'100%'}}>
+                                        {/* Screen Shot 1  */}
+                                        {
+                                            game.screenShot1 && (
+                                                <div>
+                                                    <img className="img-fluid p-2" src={BASE_URL+'/games/image/'+game.screenShot1} />
+                                                </div>
+                                            )
+                                        }
+                                        {/* Screen Shot 2  */}
+                                        {
+                                            game.screenShot2 && (
+                                                <div>
+                                                    <img className="img-fluid p-2" src={BASE_URL+'/games/image/'+game.screenShot2} />
+                                                </div>
+                                            )
+                                        }
+                                        {/* Screen Shot 3 */}
+                                        {
+                                            game.screenShot3 && (
+                                                <div>
+                                                    <img className="img-fluid p-2" src={BASE_URL+'/games/image/'+game.screenShot3} />
+                                                </div>
+                                            )
+                                        }
+                                        {/* Screen Shot 4 */}
+                                        {
+                                            game.screenShot4 && (
+                                                <div>
+                                                    <img className="img-fluid p-2" src={BASE_URL+'/games/image/'+game.screenShot4} />
+                                                </div>
+                                            )
+                                        }
+                                        </div>
+                                        
+                                        {/* Similar Games */}
+                                        <div className="mt-5" style={{ width: '100%' }}>
+                                            <SimilarGames />
+                                        </div>
                                     </CardBody>
                                 )
                             }
