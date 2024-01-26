@@ -14,3 +14,5 @@ const ProjectCard = ({title, squareImage}) => {
     )
 
 }
+
+export default ProjectCard;

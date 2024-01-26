@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getSingleGame } from "../services/game-service";
 import { BASE_URL } from "../services/helper";
 import SimilarGames from "../components/game-page/SimilarGames";
+import GameEmbed from "../components/game-page/GameEmbed";
 
 const GamePage = () => {
 
@@ -56,9 +57,11 @@ const GamePage = () => {
                                         <div className="divider" style={{width:'100%', height:'1px',background:'#e2e2e2'}}></div>
 
                                         {/* Game Image */}
-                                        <div className="text-center mt-3 shadow" style={{maxWidth:'100%'}}>
-                                            <img className="text-center" src={BASE_URL+'/games/image/'+game.bannerImage} />
-                                        </div>
+                                        {/* <div className="text-center mt-3 shadow" style={{maxWidth:'100%'}}>
+                                            <img className="text-center img-fluid" src={BASE_URL+'/games/image/'+game.bannerImage} />
+                                        </div> */}
+
+                                        <GameEmbed/>
 
                                          {/* Divider */}
                                          <div className="divider" style={{width:'100%', height:'1px',background:'#e2e2e2'}}></div>

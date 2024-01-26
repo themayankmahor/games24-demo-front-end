@@ -44,30 +44,36 @@ const SimilarGames = () => {
       accumulator.push([]);
     }
 
-    // Add the current image to the last set
-    accumulator[accumulator.length - 1].push(
-      <div key={item.gameId} className="col-md-3">
-        <div style={{ position: 'relative', height: '250px', overflow: 'hidden' }}>
-          <img
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            src={BASE_URL + '/games/image/' + item.squareImage}
-            alt={`Image ${index + 1}`}
-            className="img-fluid square-image"
-          />
-          <div className="caption" style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', textAlign: 'center', color: 'white', padding: '10px' }}>
-            <h5>{item.gameTitle}</h5>
-          </div>
+  // Add the current image to the last set
+  accumulator[accumulator.length - 1].push(
+    <div key={item.gameId} className="col-md-3">
+      <div style={{ position: 'relative', height: '250px', overflow: 'hidden' }}>
+        <img
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain', // Maintain aspect ratio
+            objectPosition: 'center', // Center the image
+          }}
+          src={BASE_URL + '/games/image/' + item.squareImage}
+          alt={`Image ${index + 1}`}
+          className="img-fluid"
+        />
+        <div className="caption" style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', textAlign: 'center', color: 'white', padding: '10px' }}>
+          <h5>{item.gameTitle}</h5>
         </div>
       </div>
-    );
+    </div>
+  );
 
-    return accumulator;
-  }, []);
+  return accumulator;
+}, []);
+
 
   // Render the sets of four images
   const carouselSlides = games && games.length > 0 ? (
     slides.map((set, setIndex) => (
-      <CarouselItem key={setIndex}>
+      <CarouselItem className="img-fluid" key={setIndex}>
         <div className="row">{set}</div>
       </CarouselItem>
     ))
@@ -76,10 +82,10 @@ const SimilarGames = () => {
   return (
     <div>
       {/* Banners */}
-      <div style={{ border: '5px solid #000', color: '#fff'}}>
+      <div style={{ border: '5px solid #000', color: '#fff' }}>
         {/* Heading */}
         <div className="py-2" style={{ backgroundColor: '#000', color: '#fff' }}>
-           <h1 style={{ fontWeight: 'bold', fontSize: '40px' }}>Similar Games</h1>
+          <h1 style={{ fontWeight: 'bold', fontSize: '40px' }}>Similar Games</h1>
         </div>
 
         {/* Carousel Banner*/}
