@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem } from "reactstrap";
 import { BASE_URL } from "../../services/helper";
-import { getAllGames } from "../../services/game-service";
+import { doGetGamesByCategoryId, getAllGames } from "../../services/game-service";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const SmallCards = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -10,7 +11,7 @@ const SmallCards = () => {
   const [games, setGames] = useState([]);
 
   useEffect(() => {
-    getAllGames(0, 10)
+    getAllGames(0,10)
       .then((data) => {
         setGames(data);
         console.log(data);
@@ -44,30 +45,38 @@ const SmallCards = () => {
       accumulator.push([]);
     }
 
-    // Add the current image to the last set
-    accumulator[accumulator.length - 1].push(
-      <div key={item.gameId} className="col-md-3">
-        <div style={{ position: 'relative', height: '250px', overflow: 'hidden' }}>
-          <img
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            src={BASE_URL + '/games/image/' + item.squareImage}
-            alt={`Image ${index + 1}`}
-            className="img-fluid square-image"
-          />
-          <div className="caption" style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', textAlign: 'center', color: 'white', padding: '10px' }}>
-            <h5>{item.gameTitle}</h5>
-          </div>
+  // Add the current image to the last set
+  accumulator[accumulator.length - 1].push(
+    <div key={item.gameId} className="col-md-3">
+      <div style={{ position: 'relative', height: '250px', overflow: 'hidden' }}>
+        <Link to={`/games/${item.gameId}`}>
+        <img
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain', // Maintain aspect ratio
+            objectPosition: 'center', // Center the image
+          }}
+          src={BASE_URL + '/games/image/' + item.squareImage}
+          alt={`Image ${index + 1}`}
+          className="img-fluid"
+        />
+        <div className="caption" style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', textAlign: 'center', color: 'white', padding: '10px' }}>
+          <h5>{item.gameTitle}</h5>
         </div>
+        </Link>
       </div>
-    );
+    </div>
+  );
 
-    return accumulator;
-  }, []);
+  return accumulator;
+}, []);
+
 
   // Render the sets of four images
   const carouselSlides = games.content && games.content.length > 0 ? (
     slides.map((set, setIndex) => (
-      <CarouselItem key={setIndex}>
+      <CarouselItem className="img-fluid" key={setIndex}>
         <div className="row">{set}</div>
       </CarouselItem>
     ))
@@ -78,8 +87,8 @@ const SmallCards = () => {
       {/* Banners */}
       <div style={{ backgroundColor: '#000', color: '#fff' }}>
         {/* Heading */}
-        <div className="px-5 py-5" style={{ backgroundColor: '#000', color: '#fff' }}>
-          {/* <h1 style={{ fontWeight: 'bold', fontSize: '50px' }}>PROJECTS</h1> */}
+        <div className="py-2" style={{ backgroundColor: '#000', color: '#fff' }}>
+          {/* <h1 style={{ fontWeight: 'bold', fontSize: '40px' }}>Similar Games</h1> */}
         </div>
 
         {/* Carousel Banner*/}

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import PauseOnHover from "./ProjectSmallCards";
 import { getAllGames } from "../../services/game-service";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const items = [
     {
@@ -70,10 +71,12 @@ const ProjectsBanner = () => {
           onExited={() => setAnimating(false)}
           key={item.gameId}
         >
-          <img src={BASE_URL+'/games/image/'+item.bannerImage} alt={item.altText} style={{ width: '100%' }} />
-          <CarouselCaption
-            captionHeader={item.gameTitle}
-          />
+          <Link to={`/games/${item.gameId}`} style={{ textDecoration: 'none', color: 'inherit'}}>
+            <img src={BASE_URL+'/games/image/'+item.bannerImage} alt={item.altText} style={{ width: '100%' }} />
+            <CarouselCaption
+              captionHeader={item.gameTitle}
+            />
+          </Link>
         </CarouselItem>
       );
     });

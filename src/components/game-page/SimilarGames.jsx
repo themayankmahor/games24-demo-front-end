@@ -4,22 +4,26 @@ import { BASE_URL } from "../../services/helper";
 import { doGetGamesByCategoryId, getAllGames } from "../../services/game-service";
 import { toast } from "react-toastify";
 
-const SimilarGames = () => {
+const SimilarGames = ({excludeGameID, categoryID}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [games, setGames] = useState([]);
 
   useEffect(() => {
-    doGetGamesByCategoryId(2)
+    doGetGamesByCategoryId(categoryID)
       .then((data) => {
-        setGames(data);
-        console.log(data);
+
+        //filter the game that include the game ID
+        const filterGames = data.filter((game) => game.gameId != excludeGameID);
+
+        setGames(filterGames);
+        console.log(filterGames);
       })
       .catch((error) => {
         toast.error("Error in Loading games");
         console.log(error);
       });
-  }, []);
+  }, [excludeGameID]);
 
   const next = () => {
     if (animating || !games || games.length <= 4) return;
@@ -43,11 +47,16 @@ const SimilarGames = () => {
       // Create a new set of four images
       accumulator.push([]);
     }
-
+  
   // Add the current image to the last set
   accumulator[accumulator.length - 1].push(
+    
+    // item.gameId == gameID (
+
     <div key={item.gameId} className="col-md-3">
       <div style={{ position: 'relative', height: '250px', overflow: 'hidden' }}>
+
+        <a href={"/games/"+item.gameId}>
         <img
           style={{
             width: '100%',
@@ -59,13 +68,15 @@ const SimilarGames = () => {
           alt={`Image ${index + 1}`}
           className="img-fluid"
         />
+        </a>
         <div className="caption" style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', textAlign: 'center', color: 'white', padding: '10px' }}>
           <h5>{item.gameTitle}</h5>
         </div>
       </div>
     </div>
-  );
-
+    // )
+  )
+  
   return accumulator;
 }, []);
 

@@ -1,6 +1,6 @@
 import { Card, CardBody, CardText, Col, Container, Row } from "reactstrap"
 import Base from "../components/Base"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { getSingleGame } from "../services/game-service";
 import { BASE_URL } from "../services/helper";
@@ -11,6 +11,7 @@ const GamePage = () => {
 
     const {gameId} = useParams();
     const [game, setGame] = useState(null);
+    
 
     ///Print Data
     const printData = (dates) => {
@@ -72,7 +73,7 @@ const GamePage = () => {
                                             {
                                                 game.googlePlayLink && (
                                                     <div>
-                                                        <Link> <h5>{game.googlePlayLink}</h5></Link>
+                                                        <a href={game.googlePlayLink} target="_blank" rel="noopener noreferrer"> <h5>{game.googlePlayLink}</h5></a>
                                                     </div>
                                                 )
                                             }
@@ -130,7 +131,7 @@ const GamePage = () => {
                                         
                                         {/* Similar Games */}
                                         <div className="mt-5" style={{ width: '100%' }}>
-                                            <SimilarGames />
+                                            <SimilarGames excludeGameID={gameId} categoryID={game.category.categoryId} />
                                         </div>
                                     </CardBody>
                                 )
