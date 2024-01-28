@@ -4,7 +4,7 @@ import "./CustomFooter.css";
 
 const CustomFooter = () => {
   return (
-    <footer className="bg-dark text-light text-center py-3">
+    <footer className="bg-dark text-light text-center">
       <Container className="footer-container">
         {/* Left side (Image) */}
         <div className="footer-left">
@@ -19,7 +19,7 @@ const CustomFooter = () => {
 
         {/* Right side (Paragraph) */}
         <div className="footer-right">
-          <p className="mb-0">© 2024 Your Website. All Rights Reserved.</p>
+          <p className="mb-0">© All Rights Reserved.</p>
         </div>
       </Container>
     </footer>
