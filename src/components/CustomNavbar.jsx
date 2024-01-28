@@ -77,7 +77,7 @@ const CustomNavbar = () => {
             >
           
 
-          <NavLink tag={ReactLink} to={"/"} className="d-flex align-items-center">
+          <NavLink tag={ReactLink} to={"/about"} className="d-flex align-items-center">
             <img className='my-2' src={BASE_URL+'/games/image/gamePattyLogo.png'} style={{maxWidth:'250px'}} alt="Logo" />
           </NavLink>
 
@@ -93,9 +93,9 @@ const CustomNavbar = () => {
               </NavItem>
 
                 {/* News */}
-              <NavItem className="px-4">
+              {/* <NavItem className="px-4">
                 <NavLink tag={ReactLink} to={"/about"}>News</NavLink>
-              </NavItem>
+              </NavItem> */}
 
                 {/* Careers */}
               {/* <NavItem className="px-4">

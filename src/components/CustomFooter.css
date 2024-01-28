@@ -1,0 +1,25 @@
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-right {
+    text-align: center;
+  }
+  
+  @media (max-width: 767px) {
+    .footer-container {
+      flex-direction: column;
+    }
+  
+    .footer-right {
+      margin-top: 10px;
+    }
+  }

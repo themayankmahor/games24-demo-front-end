@@ -66,6 +66,13 @@ const Contact = () => {
             //
             console.log(data);
             toast.success("Message is sent...");
+            setUserMessage(
+                {
+                    name:'',
+                    email:'',
+                    message:''
+                }
+            )
 
         }).catch((error) => {
 

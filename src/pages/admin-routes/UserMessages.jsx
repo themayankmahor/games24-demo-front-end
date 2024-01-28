@@ -14,7 +14,7 @@ const UserMessages = () => {
         //delete user message
         doDeleteUserMessage(userMessage.userMessageId).then((data) => {
 
-            toast.success("Category Deleted !!!");
+            toast.success("Message Deleted !!!");
 
             let newUserMessages = allMessages.filter(m => m.userMessageId != userMessage.userMessageId)
             setAllMessages([...newUserMessages]);
