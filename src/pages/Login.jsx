@@ -20,6 +20,7 @@ const Login = () => {
     const handleChange = (event, field) => {
         let actualValue = event.target.value;
 
+        console.log(loginDetail)
         //set login details
         setLoginDetail({
             ...loginDetail,

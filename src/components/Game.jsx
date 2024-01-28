@@ -12,8 +12,8 @@ const Game = ({game={gameId:-1, gameTitle:"This is default game title", descript
             <CardBody>
                 <h1>{game.gameTitle}</h1>
 
-                <CardText dangerouslySetInnerHTML={{ __html: game.description}}>
-
+                <CardText>
+                    {game.description.substring(0,10)}...
                 </CardText>
 
                 <div>

@@ -1,18 +1,12 @@
 import React from "react";
-import ProjectsBanner from "../about/ProjectsBanner";
 
 const GameEmbed = () => {
   return (
     <div>
       <React.Fragment>
-        <iframe
-          title="Your Game"
-          src="../../games/kingsandpigs/index.html"  // Update this path to the location of your HTML5 game
-          width="800"  // Set the width to the desired value
-          height="600"  // Set the height to the desired value
-          
-          allowFullScreen
-        ></iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/rQAEoTtD5uM?si=wDn1FNlvC62Rg7g4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+
+      </iframe>
       </React.Fragment>
     </div>
   );

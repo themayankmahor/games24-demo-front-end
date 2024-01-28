@@ -14,10 +14,16 @@ import {
   DropdownItem,
   NavbarText,
   Button,
+  Badge,
+  Popover,
+  PopoverHeader,
+  PopoverBody,
 } from 'reactstrap';
 import userContext from '../context/userContext';
 import { doLogout } from '../auth';
 import { BASE_URL } from '../services/helper';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
 
 const CustomNavbar = () => {
 
@@ -25,6 +31,7 @@ const CustomNavbar = () => {
     const userContextData = useContext(userContext);
     const navigate = useNavigate();
     const [login, setLogin] = useState(false);
+    const [popoverOpen, setPopoverOpen] = useState(false);
 
     ///Logout
     const logout = () => {
@@ -47,6 +54,16 @@ const CustomNavbar = () => {
     {
         setIsOpen(!isOpen);
     }
+
+    const togglePopover = () => {
+      setPopoverOpen(!popoverOpen);
+    };
+  
+    const handleNotificationClick = () => {
+      // Handle notification click, e.g., navigate to notifications page
+      navigate('/notifications');
+      setPopoverOpen(false); // Close the popover after clicking
+    };
     
 
     return(
@@ -92,7 +109,7 @@ const CustomNavbar = () => {
 
                 {/* Contacts */}
               <NavItem className="px-4">
-                <NavLink tag={ReactLink} to={"/services"}>Contact</NavLink>
+                <NavLink tag={ReactLink} to={"/contact"}>Contact</NavLink>
               </NavItem>
 
               {/* <UncontrolledDropdown nav inNavbar>
@@ -122,34 +139,26 @@ const CustomNavbar = () => {
                             </NavLink>
                             </NavItem>
 
-                        {/* Add Tag */}
-                            {/* <NavItem>
-                            <NavLink tag={ReactLink} to={"/admin/add-tag"}>
-                                Add Tag
-                            </NavLink>
-                            </NavItem> */}
 
-                        {/* Add Category */}
-                            {/* <NavItem>
-                            <NavLink tag={ReactLink} to={"/admin/add-category"}>
-                                Add Category
-                            </NavLink>
-                            </NavItem> */}
+                              {/* Notification Bell Icon */}
+                              {/* <NavItem className="px-3">
+                                <NavLink className="hand-cursor" id="bellPopover" onClick={togglePopover}>
+                                <FontAwesomeIcon icon={faBell} size="lg"/> */}
+                                  { /* badge for notifications count */}
+                                  {/* <Badge color="danger" className="ms-1">1</Badge>
+                                </NavLink> */}
 
-                        {/* Add Client Testimony */}
-                            {/* <NavItem>
-                            <NavLink tag={ReactLink} to={"/admin/add-clients"}>
-                                Add Client
-                            </NavLink>
-                            </NavItem> */}
-
-                        
-                        {/* Add Game */}
-                            {/* <NavItem>
-                            <NavLink tag={ReactLink} to={"/admin/dashboard"}>
-                                Add Game
-                            </NavLink>
-                            </NavItem> */}
+                                {/* Notification Popover */}
+                                {/* <Popover placement="bottom" isOpen={popoverOpen} target="bellPopover" toggle={togglePopover}>
+                                  <PopoverHeader>Notifications</PopoverHeader>
+                                  <PopoverBody>
+                                    <p>New notification!</p>
+                                    <Button color="primary" onClick={handleNotificationClick}>
+                                      View
+                                    </Button>
+                                  </PopoverBody>
+                                </Popover>
+                              </NavItem> */}
 
                         <UncontrolledDropdown nav inNavbar>
                         <DropdownToggle nav caret>
@@ -162,6 +171,7 @@ const CustomNavbar = () => {
                           {/* <DropdownItem divider /> */}
                           <DropdownItem tag={ReactLink} to={"/admin/add-clients"} >Add Client</DropdownItem>
                           <DropdownItem tag={ReactLink} to={"/admin/dashboard"}>Add Game</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={"/admin/messages"}>Messages</DropdownItem>
 
                         </DropdownMenu>
                       </UncontrolledDropdown>

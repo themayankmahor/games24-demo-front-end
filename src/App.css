@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -62,4 +63,8 @@
   background-color: #A367B1; /* Dark black color */
   color: #fff; /* White text color */
   padding: 50px; /* Add padding as needed */
+}
+
+.hand-cursor {
+  cursor: pointer;
 }
